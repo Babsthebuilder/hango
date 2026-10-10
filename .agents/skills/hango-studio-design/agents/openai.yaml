@@ -1,0 +1,4 @@
+interface:
+  display_name: "HANGO Studio Design"
+  short_description: "Design HANGO's premium broadcast interface"
+  default_prompt: "Use -studio-design to guide HANGO UI and studio visual implementation."

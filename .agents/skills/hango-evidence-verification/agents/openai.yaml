@@ -1,0 +1,4 @@
+interface:
+  display_name: "HANGO Evidence Verification"
+  short_description: "Verify tactical claims against traceable evidence"
+  default_prompt: "Use -evidence-verification to verify HANGO claims and evidence references."

@@ -1,0 +1,44 @@
+{
+  "fixture_class": "neutral_interaction",
+  "description": "Two home support players make separated movements that plausibly improve independent routes without relying on each other.",
+  "snapshot": {
+    "schema_version": "0.1",
+    "snapshot_id": "neutral-001-baseline",
+    "provenance": "HANGO synthetic fixture v0.1; hand-authored approximately additive support scenario",
+    "attacking_directions": {"HOME": "POSITIVE_X", "AWAY": "NEGATIVE_X"},
+    "players": [
+      {"player_id": "H01", "team": "HOME", "position": {"x": 8, "y": 34}},
+      {"player_id": "H02", "team": "HOME", "position": {"x": 20, "y": 9}},
+      {"player_id": "H03", "team": "HOME", "position": {"x": 23, "y": 24}},
+      {"player_id": "H04", "team": "HOME", "position": {"x": 23, "y": 44}},
+      {"player_id": "H05", "team": "HOME", "position": {"x": 20, "y": 59}},
+      {"player_id": "H06", "team": "HOME", "position": {"x": 39, "y": 34}},
+      {"player_id": "H07", "team": "HOME", "position": {"x": 51, "y": 17}},
+      {"player_id": "H08", "team": "HOME", "position": {"x": 51, "y": 51}},
+      {"player_id": "H09", "team": "HOME", "position": {"x": 70, "y": 7}},
+      {"player_id": "H10", "team": "HOME", "position": {"x": 58, "y": 34}},
+      {"player_id": "H11", "team": "HOME", "position": {"x": 70, "y": 61}},
+      {"player_id": "A01", "team": "AWAY", "position": {"x": 99, "y": 34}},
+      {"player_id": "A02", "team": "AWAY", "position": {"x": 87, "y": 9}},
+      {"player_id": "A03", "team": "AWAY", "position": {"x": 85, "y": 25}},
+      {"player_id": "A04", "team": "AWAY", "position": {"x": 85, "y": 43}},
+      {"player_id": "A05", "team": "AWAY", "position": {"x": 87, "y": 59}},
+      {"player_id": "A06", "team": "AWAY", "position": {"x": 72, "y": 34}},
+      {"player_id": "A07", "team": "AWAY", "position": {"x": 63, "y": 25}},
+      {"player_id": "A08", "team": "AWAY", "position": {"x": 63, "y": 43}},
+      {"player_id": "A09", "team": "AWAY", "position": {"x": 47, "y": 12}},
+      {"player_id": "A10", "team": "AWAY", "position": {"x": 52, "y": 34}},
+      {"player_id": "A11", "team": "AWAY", "position": {"x": 47, "y": 56}}
+    ],
+    "ball": {"position": {"x": 58, "y": 34}, "in_play": true}
+  },
+  "counterfactual": {
+    "counterfactual_id": "neutral-001-independent-support",
+    "baseline_snapshot_id": "neutral-001-baseline",
+    "provenance": "HANGO synthetic hypothetical v0.1; separated H07/H08 route movements tuned for approximately additive opportunity change",
+    "player_overrides": {
+      "H07": {"x": 54, "y": 25},
+      "H08": {"x": 87, "y": 55}
+    }
+  }
+}

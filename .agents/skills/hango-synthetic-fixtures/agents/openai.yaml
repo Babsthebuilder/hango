@@ -1,0 +1,4 @@
+interface:
+  display_name: "HANGO Synthetic Fixtures"
+  short_description: "Build deterministic valid football fixtures"
+  default_prompt: "Use -synthetic-fixtures to create or validate HANGO synthetic snapshot fixtures."

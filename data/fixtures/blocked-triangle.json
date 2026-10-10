@@ -1,0 +1,44 @@
+{
+  "fixture_class": "blocked_triangle",
+  "description": "A valid home triangle surrounds the ball, while three away players occupy its useful passing corridors.",
+  "snapshot": {
+    "schema_version": "0.1",
+    "snapshot_id": "blocked-001-baseline",
+    "provenance": "HANGO synthetic fixture v0.1; hand-authored blocked-lane scenario",
+    "attacking_directions": {"HOME": "POSITIVE_X", "AWAY": "NEGATIVE_X"},
+    "players": [
+      {"player_id": "H01", "team": "HOME", "position": {"x": 8, "y": 34}},
+      {"player_id": "H02", "team": "HOME", "position": {"x": 20, "y": 9}},
+      {"player_id": "H03", "team": "HOME", "position": {"x": 23, "y": 24}},
+      {"player_id": "H04", "team": "HOME", "position": {"x": 23, "y": 44}},
+      {"player_id": "H05", "team": "HOME", "position": {"x": 20, "y": 59}},
+      {"player_id": "H06", "team": "HOME", "position": {"x": 39, "y": 34}},
+      {"player_id": "H07", "team": "HOME", "position": {"x": 60, "y": 20}},
+      {"player_id": "H08", "team": "HOME", "position": {"x": 60, "y": 48}},
+      {"player_id": "H09", "team": "HOME", "position": {"x": 69, "y": 7}},
+      {"player_id": "H10", "team": "HOME", "position": {"x": 52, "y": 34}},
+      {"player_id": "H11", "team": "HOME", "position": {"x": 69, "y": 61}},
+      {"player_id": "A01", "team": "AWAY", "position": {"x": 99, "y": 34}},
+      {"player_id": "A02", "team": "AWAY", "position": {"x": 87, "y": 9}},
+      {"player_id": "A03", "team": "AWAY", "position": {"x": 85, "y": 25}},
+      {"player_id": "A04", "team": "AWAY", "position": {"x": 85, "y": 43}},
+      {"player_id": "A05", "team": "AWAY", "position": {"x": 87, "y": 59}},
+      {"player_id": "A06", "team": "AWAY", "position": {"x": 66, "y": 34}},
+      {"player_id": "A07", "team": "AWAY", "position": {"x": 56, "y": 27}},
+      {"player_id": "A08", "team": "AWAY", "position": {"x": 56, "y": 41}},
+      {"player_id": "A09", "team": "AWAY", "position": {"x": 47, "y": 13}},
+      {"player_id": "A10", "team": "AWAY", "position": {"x": 58, "y": 34}},
+      {"player_id": "A11", "team": "AWAY", "position": {"x": 47, "y": 55}}
+    ],
+    "ball": {"position": {"x": 52, "y": 34}, "in_play": true}
+  },
+  "counterfactual": {
+    "counterfactual_id": "blocked-001-support-adjustment",
+    "baseline_snapshot_id": "blocked-001-baseline",
+    "provenance": "HANGO synthetic hypothetical v0.1; small support adjustment remains geometrically blocked",
+    "player_overrides": {
+      "H07": {"x": 62, "y": 19},
+      "H08": {"x": 62, "y": 49}
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "fixture_class": "positive_relational_interaction",
+  "description": "Two home support players widen and advance together around the ball carrier, plausibly opening complementary routes.",
+  "snapshot": {
+    "schema_version": "0.1",
+    "snapshot_id": "positive-001-baseline",
+    "provenance": "HANGO synthetic fixture v0.1; hand-authored for deterministic contract and algebra testing",
+    "attacking_directions": {"HOME": "POSITIVE_X", "AWAY": "NEGATIVE_X"},
+    "players": [
+      {"player_id": "H01", "team": "HOME", "position": {"x": 8, "y": 34}},
+      {"player_id": "H02", "team": "HOME", "position": {"x": 20, "y": 9}},
+      {"player_id": "H03", "team": "HOME", "position": {"x": 23, "y": 24}},
+      {"player_id": "H04", "team": "HOME", "position": {"x": 23, "y": 44}},
+      {"player_id": "H05", "team": "HOME", "position": {"x": 20, "y": 59}},
+      {"player_id": "H06", "team": "HOME", "position": {"x": 39, "y": 34}},
+      {"player_id": "H07", "team": "HOME", "position": {"x": 50, "y": 25}},
+      {"player_id": "H08", "team": "HOME", "position": {"x": 50, "y": 43}},
+      {"player_id": "H09", "team": "HOME", "position": {"x": 67, "y": 8}},
+      {"player_id": "H10", "team": "HOME", "position": {"x": 59, "y": 34}},
+      {"player_id": "H11", "team": "HOME", "position": {"x": 67, "y": 60}},
+      {"player_id": "A01", "team": "AWAY", "position": {"x": 99, "y": 34}},
+      {"player_id": "A02", "team": "AWAY", "position": {"x": 87, "y": 9}},
+      {"player_id": "A03", "team": "AWAY", "position": {"x": 85, "y": 25}},
+      {"player_id": "A04", "team": "AWAY", "position": {"x": 85, "y": 43}},
+      {"player_id": "A05", "team": "AWAY", "position": {"x": 87, "y": 59}},
+      {"player_id": "A06", "team": "AWAY", "position": {"x": 72, "y": 34}},
+      {"player_id": "A07", "team": "AWAY", "position": {"x": 66, "y": 20}},
+      {"player_id": "A08", "team": "AWAY", "position": {"x": 66, "y": 48}},
+      {"player_id": "A09", "team": "AWAY", "position": {"x": 51, "y": 11}},
+      {"player_id": "A10", "team": "AWAY", "position": {"x": 55, "y": 34}},
+      {"player_id": "A11", "team": "AWAY", "position": {"x": 51, "y": 57}}
+    ],
+    "ball": {"position": {"x": 59, "y": 34}, "in_play": true}
+  },
+  "counterfactual": {
+    "counterfactual_id": "positive-001-both-supporters",
+    "baseline_snapshot_id": "positive-001-baseline",
+    "provenance": "HANGO synthetic hypothetical v0.1; joint H07/H08 movement creates an accessible third-player progression route",
+    "player_overrides": {
+      "H07": {"x": 88, "y": 30},
+      "H08": {"x": 78, "y": 45}
+    }
+  }
+}

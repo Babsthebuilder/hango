@@ -1,0 +1,4 @@
+interface:
+  display_name: "HANGO Football Geometry"
+  short_description: "Deterministic football geometry and interaction math"
+  default_prompt: "Use -football-geometry to implement or review deterministic HANGO tactical mathematics."

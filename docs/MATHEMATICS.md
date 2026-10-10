@@ -192,3 +192,9 @@ The following remain future research and must not be implied by the Phase 1 harn
 - causal identification of off-ball effects;
 - uncertainty intervals and empirical threshold calibration;
 - full-match simulation, video-derived tracking, and 3D reconstruction.
+
+## 13. Evidence numeric policy
+
+Evidence hashing quantizes finite floating-point values to nine decimal places with decimal round-half-even, then serializes them as fixed-width decimal strings in canonical JSON. This hashing policy prevents binary representation noise from changing semantic identity and is independent from tactical thresholds.
+
+Replay and claim assertions use `math.isclose` with versioned absolute and relative tolerances of `1e-9`. Hashes remain the authoritative exact content identifiers; tolerance comparisons explain whether a numeric-only replay difference is materially equivalent. Any change to float precision or comparison tolerances requires an evidence configuration version change. No Phase 2 tactical formula or threshold is changed by the evidence layer.

@@ -177,6 +177,18 @@ class CounterfactualComparison(CalculatedModel):
     opportunity_delta: float
 
 
+class PressureGridResult(CalculatedModel):
+    grid: PressureGrid
+    evidence_classification: str = "MODEL_ESTIMATE"
+    model_version: str
+    configuration_version: str
+
+
+class PressureGridComparison(CalculatedModel):
+    baseline: PressureGridResult
+    alternative: PressureGridResult | None = None
+
+
 class AnalyzeRequest(CalculatedModel):
     snapshot: Snapshot
     ball_carrier_id: str
@@ -190,3 +202,16 @@ class InteractionRequest(CalculatedModel):
     support_b_id: str
     support_c_id: str
     attacking_team: Team
+
+
+class CompareRequest(CalculatedModel):
+    snapshot: Snapshot
+    counterfactual: CounterfactualState
+    ball_carrier_id: str
+    attacking_team: Team
+
+
+class PressureGridRequest(CalculatedModel):
+    snapshot: Snapshot
+    attacking_team: Team
+    counterfactual: CounterfactualState | None = None

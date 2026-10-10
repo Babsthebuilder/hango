@@ -1,3 +1,4 @@
+import pytest
 from fastapi.testclient import TestClient
 
 from app.main import app
@@ -55,3 +56,46 @@ def test_interaction_endpoint_returns_all_four_states(
 
     assert response.status_code == 200
     assert set(response.json()) >= {"u_00", "u_10", "u_01", "u_11", "interaction_value", "sign"}
+
+
+def test_compare_endpoint_returns_baseline_and_alternative_without_client_math(
+    positive_fixture: SyntheticFixture,
+) -> None:
+    response = client.post(
+        "/api/tactical/compare",
+        json={
+            "snapshot": positive_fixture.snapshot.model_dump(mode="json"),
+            "counterfactual": positive_fixture.counterfactual.model_dump(mode="json"),
+            "ball_carrier_id": "H10",
+            "attacking_team": Team.HOME,
+        },
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["baseline"]["snapshot_id"] == positive_fixture.snapshot.snapshot_id
+    assert body["alternative"]["snapshot_id"] != body["baseline"]["snapshot_id"]
+    assert body["opportunity_delta"] == pytest.approx(
+        body["alternative"]["opportunity_score"] - body["baseline"]["opportunity_score"]
+    )
+
+
+def test_pressure_grid_endpoint_returns_versioned_model_estimates_for_both_states(
+    positive_fixture: SyntheticFixture,
+) -> None:
+    response = client.post(
+        "/api/tactical/pressure-grid",
+        json={
+            "snapshot": positive_fixture.snapshot.model_dump(mode="json"),
+            "counterfactual": positive_fixture.counterfactual.model_dump(mode="json"),
+            "attacking_team": Team.HOME,
+        },
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["baseline"]["evidence_classification"] == "MODEL_ESTIMATE"
+    assert body["alternative"]["evidence_classification"] == "MODEL_ESTIMATE"
+    assert body["baseline"]["grid"]["x_coordinates"][0] == 0.0
+    assert body["baseline"]["grid"]["x_coordinates"][-1] == 105.0
+    assert body["baseline"]["model_version"] == "tactical-v0.1"

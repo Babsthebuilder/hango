@@ -9,8 +9,12 @@ from app.models import SyntheticFixture
 from app.tactical.engine import TacticalEngine
 from app.tactical.schemas import (
     AnalyzeRequest,
+    CompareRequest,
+    CounterfactualComparison,
     InteractionRequest,
     InteractionResult,
+    PressureGridComparison,
+    PressureGridRequest,
     SnapshotAnalysis,
 )
 
@@ -63,5 +67,41 @@ def analyze_interaction(request: InteractionRequest) -> InteractionResult:
             request.support_c_id,
             request.attacking_team,
         )
+    except ValueError as error:
+        raise HTTPException(status_code=422, detail=str(error)) from error
+
+
+@router.post("/tactical/compare", response_model=CounterfactualComparison)
+def compare_tactical_states(request: CompareRequest) -> CounterfactualComparison:
+    """Compare baseline and explicit hypothetical state without client-side calculation."""
+
+    try:
+        return engine.compare_counterfactual(
+            request.snapshot,
+            request.counterfactual,
+            request.ball_carrier_id,
+            request.attacking_team,
+        )
+    except ValueError as error:
+        raise HTTPException(status_code=422, detail=str(error)) from error
+
+
+@router.post("/tactical/pressure-grid", response_model=PressureGridComparison)
+def analyze_pressure_grid(request: PressureGridRequest) -> PressureGridComparison:
+    """Return versioned baseline and optional hypothetical modeled pressure fields."""
+
+    try:
+        baseline = engine.defensive_pressure_grid(request.snapshot, request.attacking_team)
+        alternative = None
+        if request.counterfactual is not None:
+            alternative_snapshot = engine.materialize_counterfactual(
+                request.snapshot,
+                request.counterfactual,
+            )
+            alternative = engine.defensive_pressure_grid(
+                alternative_snapshot,
+                request.attacking_team,
+            )
+        return PressureGridComparison(baseline=baseline, alternative=alternative)
     except ValueError as error:
         raise HTTPException(status_code=422, detail=str(error)) from error

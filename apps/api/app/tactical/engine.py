@@ -6,7 +6,7 @@ from statistics import fmean
 
 from app.models import CounterfactualState, PlayerState, Position, Snapshot, Team
 from app.tactical.config import DEFAULT_TACTICAL_CONFIG, TacticalConfig
-from app.tactical.gaussian_field import pressure_at_point
+from app.tactical.gaussian_field import pressure_at_point, pressure_grid
 from app.tactical.interaction import build_interaction_result
 from app.tactical.opportunity import evaluate_route, score_triangle, state_opportunity
 from app.tactical.pass_lanes import analyze_passing_lane
@@ -15,6 +15,7 @@ from app.tactical.schemas import (
     CounterfactualComparison,
     InteractionResult,
     PassingGraph,
+    PressureGridResult,
     PressureSummary,
     SnapshotAnalysis,
     TacticalTriangleAnalysis,
@@ -184,6 +185,34 @@ class TacticalEngine:
             opportunity_delta=(
                 alternative_result.opportunity_score - baseline_result.opportunity_score
             ),
+        )
+
+    def materialize_counterfactual(
+        self,
+        snapshot: Snapshot,
+        counterfactual: CounterfactualState,
+    ) -> Snapshot:
+        """Return the immutable hypothetical snapshot described by explicit overrides."""
+
+        counterfactual.validate_against(snapshot)
+        return _snapshot_with_overrides(
+            snapshot,
+            counterfactual.player_overrides,
+            counterfactual.counterfactual_id,
+        )
+
+    def defensive_pressure_grid(
+        self,
+        snapshot: Snapshot,
+        attacking_team: Team,
+    ) -> PressureGridResult:
+        """Return the versioned modeled pressure field faced by one attacking team."""
+
+        defenders = tuple(player for player in snapshot.players if player.team != attacking_team)
+        return PressureGridResult(
+            grid=pressure_grid(defenders, self.config),
+            model_version=self.config.model_version,
+            configuration_version=self.config.configuration_version,
         )
 
     def compute_interaction(
